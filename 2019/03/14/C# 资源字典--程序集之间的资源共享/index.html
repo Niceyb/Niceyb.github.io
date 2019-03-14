@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">YbWork&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name"></a>
+            </div>
+    </div>
     
     <a class="home-link" href="/">YbWork's Studio.</a>
 </header>
@@ -220,24 +231,68 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            [Untitled Post]
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">981</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/03/14</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,44 +393,125 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/01/22/ASP.NET学习流程简述/">
-            
-                <span>初识ASP.NET（学习流程）</span>
-        </a>
-        <div class="abstract-content">
-            对于日常那种迷茫的学习 效率低且十分煎熬 因此特整理出基本思路以供后续学习
-ASP.NET学习流程简述学习HTML与CSS主要在于理解概念
-学习JavaScriptJavaScript并不是Java，他主要运行于浏览器端，同时也是目前非常流行的AJAX技术的基础
-学习计算机网络原理了解一些域名解析和HTTP协议
-学习ASP.NET表示层技术
-各种web控件的使用方法
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="C-资源字典–程序集之间的资源共享"><a href="#C-资源字典–程序集之间的资源共享" class="headerlink" title="C# 资源字典–程序集之间的资源共享"></a>C# 资源字典–程序集之间的资源共享</h1><p>最近刚巧需要用WPF制作一个订单处理类应用，虽然一开始接触专业方面知识就是从C#WPF程序开始但一开始这个小项目就遇到了界面布局等等问题 最终在百度，书本的帮助下做出一个简单的界面</p>
+<p><img src="E:\Blog\Niceyb.github.io\source\_posts\Image\微信图片_20190314213948.png" alt=""></p>
+<p>主界面中用到了简单的用户自定义控件 再到后台逻辑代码中利用for循环打印上去</p>
+<p><code>for (int i = 0; i &lt;2; i++)
+            {
+                for (int j = 0; j &lt; 8; j++)
+                {
+                    UserControl1 bitkyPoleControl = new UserControl1();
+                    bitkyPoleControl.Set_MainIdName(52-(i * 10 + j ));
+                    qian3.Children.Add(bitkyPoleControl);
+                    Grid.SetRow(bitkyPoleControl, i);
+                    Grid.SetColumn(bitkyPoleControl, j);
+                    controls.Add(bitkyPoleControl);
+                }
+            }</code></p>
+<p><img src="E:\Blog\Niceyb.github.io\source\_posts\Image\微信图片_20190314214014.png" alt=""></p>
+<p><img src="E:\Blog\Niceyb.github.io\source\_posts\Image\微信图片_20190314214018.png" alt=""></p>
+<p><img src="E:\Blog\Niceyb.github.io\source\_posts\Image\微信图片_20190314214023.png" alt=""></p>
+<p><img src="E:\Blog\Niceyb.github.io\source\_posts\Image\微信图片_20190314214027.png" alt=""></p>
+<p>一、使用代码创建 ResourceDictionary 对象： </p>
+<p>1、假设资源字典专用类库为 ResourceDictionaryLibrary ，要使用其中的一个资源字典为 ButtonBackgroundDic.xaml 的资源字典，可以使用下面的代码进行访问： </p>
+<p><code>ResourceDictionary resDictionary = new ResourceDictionary();resDictionary.Source = new Uri(&quot;ResourceDictionaryLibrary;component/ButtonBackgroundDic.xaml&quot;,UriKind.Relative);</code></p>
+<p>2、在使用时，我们就可以通过Key来手动检索所需的资源了，如下代码所示（其中 BtnBackgound_SkyBlue 是我要用的资源的 Key ；btn 是我使用该资源的一个 Button ）： </p>
+<p><code>this.btn.Background = (Brush)resourceDic[&quot;BtnBackgound_SkyBlue&quot;];</code></p>
+<!--*在上面代码中使用了 pack URI 语法，这里仅作简单介绍，具体语法讲解请查阅相关资料：*
 
-理解信息在网页中的传送方式（Cookies，Session，等）
+　　　　　　*语法格式为 ResourceName（相对URI）或 pack://application:,,,/ResourceName（绝对URI），两种写法是等效的；但对于检索嵌入到其他资源库中的资源时语法格式为 AssemblyName;component/ResourceName（相对URI）或 pack://application:,,,/AssemblyName;component/ResourceName（绝对URI）（如在上述例子中使用的格式为：”AssemblyName;component/ResourceName“）。*-->
+<p>二、使用 ComponentResourceKey 标记扩展： </p>
+<p>　1、使用 ComponentResourceKey 为资源创建键名，这可起到通知 WPF 我们将在程序集之间共享资源。</p>
+<p>　　　　2、使用这种方式时，我们务必将资源字典整合到 Generic.xaml 文件中，并且必须将该文件位于 Themes 文件夹中。</p>
+<p>　　　　　　目录结构大概是这样的：ResourceDictionaryLibrary/Themes/Generic.xaml</p>
+<p>　　　　　　更合了资源字典的 Generic.xaml 文件大致是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;ResourceDictionary</span><br><span class="line">    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</span><br><span class="line">    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span><br><span class="line">    xmlns:local=&quot;clr-namespace:ResourceDictionaryLibrary&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;ResourceDictionary.MergedDictionaries&gt;</span><br><span class="line">        &lt;!--该资源是要使用在其他程序集中，因此使用下面的 pack URI 语法在其他程序访问该资源时才能正常运行。如果直接指定资源文件名称，则程序将会在自己的资源中查找。--&gt;</span><br><span class="line">        &lt;ResourceDictionary Source=&quot;ResourceDictionaryLibrary;component/ButtonBackgroundDic.xaml&quot;/&gt;</span><br><span class="line">    &lt;/ResourceDictionary.MergedDictionaries&gt;</span><br><span class="line"></span><br><span class="line">&lt;/ResourceDictionary&gt;</span><br></pre></td></tr></table></figure>
+<p>3、为需要共享的资源创建键名。</p>
+<p>　　　　　　使用 ComponentResourceKey 时，需要提供两部分信息：类库程序集中类的引用和描述性的资源ID。类引用是共享资源的关键。当在使用时，需要提供相同的类引用和资源ID。</p>
+<p>　　　　　　该类无所谓定义为什么名，也可以没有任何代码。但是，需要将该类定义到 ComponentResourceKey 将要从中查找资源的程序集（如我们单独创建的资源字典的程序集），比如我将该类定义成如下样子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public class CustomResources</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　4、使用上面的 CustomResources 类和资源ID创建键名： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x:Key=&quot;&#123;ComponentResourceKey TypeInTargetAssembly=&#123;x:Type local:CustomResources&#125;,ResourceId=BtnBackgound_SkyBlue&#125;&quot;</span><br></pre></td></tr></table></figure>
+<p>　5、在其他应用程序中的使用：</p>
+<ul>
+<li><ul>
+<li><ul>
+<li>在使用的地方定义资源类库程序集的前缀，如下所示：</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:res=&quot;clr-namespace:ResourceDictionaryLibrary;assembly=ResourceDictionaryLibrary&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><ul>
+<li><ul>
+<li>使用包含 ComponentResourceKey 的 DynamicResource 调用资源。此时的 ComponentResourceKey 就是资源类库中定义的 ComponentResourceKey 。如下代码所示：</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Button Name=&quot;btn&quot; Background=&quot;&#123;DynamicResource &#123;ComponentResourceKey TypeInTargetAssembly=&#123;x:Type res:CustomResources&#125;,ResourceId=BtnBackgound_SkyBlue&#125;&#125;&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p><em>注：使用 ComponentResourceKey 时，必须使用动态资源，而不能使用静态资源。</em></p>
+<ul>
+<li><ul>
+<li><ul>
+<li>为了简化使用方式，可以在提供资源的类库程序集的类中定义一个静态属性，让其返回正确的 ComponentResourceKey ，如下所示：</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a href="javascript:void(0" target="_blank" rel="noopener"><img src="https://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>;)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public class CustomResources</span><br><span class="line">&#123;</span><br></pre></td></tr></table></figure>
+<p>​      /// <summary><br>      /// 属性名不必与 ComponentResourceKey 的 resourceId 相同<br>      /// </summary></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static ComponentResourceKey BtnBackgound_SkyBlue</span><br><span class="line">    &#123;</span><br><span class="line">       get &#123; return new ComponentResourceKey(typeof(CustomResources), &quot;BtnBackgound_SkyBlue&quot;); &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　　　　　此时，可以使用 Static 标记扩展访问该属性了并应用资源了，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Button Name=&quot;btn&quot; Background=&quot;&#123;DynamicResource &#123;x:Static res:CustomResources.BtnBackgound_SkyBlue&#125;&#125;&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>[^遇到困难，解决困难]: </p>
 
-ASP.NET应用程序与网页的生命周期以及相关对象（httpcontext，response，request）的用途
-
-ASP.NET实现事件和驱动的内幕...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/22</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
     </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://yoursite.com">Yuan Bo</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/03/14/C# 资源字典--程序集之间的资源共享/">http://yoursite.com/2019/03/14/C# 资源字典--程序集之间的资源共享/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/03/14/C# 资源字典--程序集之间的资源共享/">March 14th 2019, 9:53:21 pm</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/03/14/C# 资源字典--程序集之间的资源共享/">March 14th 2019, 9:53:21 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/01/22/ASP.NET学习流程简述/" title="初识ASP.NET（学习流程）">
+                    <div class="prevTitle">初识ASP.NET（学习流程）</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -464,6 +600,24 @@ ASP.NET实现事件和驱动的内幕...
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-资源字典–程序集之间的资源共享"><span class="toc-number">1.</span> <span class="toc-text">C# 资源字典–程序集之间的资源共享</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -614,6 +768,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
