@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>YbWork&#39;s Studio</title>
+    <title>X-Box仓库管理制作感悟 · YbWork&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -77,6 +77,8 @@
 
     <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
@@ -201,14 +203,23 @@
 </head>
 
     
-        <body class="home-body">
+        <body class="post-body">
     
     
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">YbWork&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">X-Box仓库管理制作感悟</a>
+            </div>
+    </div>
     
     <a class="home-link" href="/">YbWork's Studio.</a>
 </header>
@@ -227,17 +238,17 @@ height:50vh;
     <!-- 主页  -->
     
     
-    <!-- 文章页  -->
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/index-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            YbWork's Studio.
-            <!-- 文章页  -->
+            X-Box仓库管理制作感悟
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
@@ -245,12 +256,43 @@ height:50vh;
             <!-- 主页副标题  -->
             
             
-                每个人都值得被遇到
-            
-            <!-- 文章页  -->
+            <!-- 404 -->
             
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">723</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/09</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -351,266 +393,79 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/09/WPF将DataGrid内容导出到Excel/">
-            
-                <span>WPF将DataGrid内容导出到Excel</span>
-        </a>
-        <div class="abstract-content">
-            WPF将DataGrid内容导出到Excel在做仓库管理时其中一个需求就是把WPF中的datagird中的内容导出为Excel。查了很多网上的资料，最后结合将DataGridView导出到Excel的方法做了一些调整之后实现了功能需求。    
-12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152private void ExportParameterBtn_Click(object sender, RoutedEventArgs e)        ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/09</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/09/MySql之多表联合操作/">
-            
-                <span>MySql之多表联合操作</span>
-        </a>
-        <div class="abstract-content">
-            前提：为方便后面的操作，我们首先创建一个数据库 test，再在 test 里创建两个数据表：grade（班级表）和student（学生表）
-创建数据库：CREATE DATABASE test;
-选择要操作的数据表：USE test;
-创建数据表：CREATE TABLE grade 
-　　　　　　( 
-　　　　　　　　 id INT(4) NOT NULL PRIMARY KEY,
-　　　　　　 　　name varchar(36)
-　　　　　　 );
-　　　　　　
-　　　　　　CREATE TABLE student　　　　　　(    　　　　　　　　sid INT(4) NOT ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/09</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/09/WPF excel导入DataGrid/">
-            
-                <span>WPF excel导入DataGrid</span>
-        </a>
-        <div class="abstract-content">
-             导出Excel的样式设计
-[csharp]
-view  plain
-copy
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="X-Box仓库管理制作感悟"><a href="#X-Box仓库管理制作感悟" class="headerlink" title="X-Box仓库管理制作感悟"></a>X-Box仓库管理制作感悟</h1><p><code>在经历了一个月的努力后最终实现了这款仓库管理应用，在最开始时也曾感受到迷茫感觉这样一个庞大的项目是我可以完成的吗？ 最终看来完成的还是不错的。</code></p>
+<p><img src="E:\Blog\Niceyb.github.io\source\_posts\Image\微信图片_20190409161334.png" alt="微信图片_20190409161334"></p>
+<p>从最初的的整体设计到最后的具体实施确实花费了较大的心力。那就在这边总结一下吧…</p>
+<h2 id="界面设计"><a href="#界面设计" class="headerlink" title="界面设计"></a>界面设计</h2><p>界面方面大概花费了将近一周的时间吧 最终将整体的样式设计出来，并且按照网格的格式规范编写代码，其中主界面的自定义控件实现了货柜的可视化查看（其实就是从数据库查出状态实时反应出来罢了）整体设计利用到了资源字典将主要的一些控件的样式进行了修改 比如：tabitem，button等</p>
+<h2 id="整体实施"><a href="#整体实施" class="headerlink" title="整体实施"></a>整体实施</h2><ul>
+<li><p>在界面设计师遇到了部分控件无法达到预期的需求这种情况，还有数据库的设计也是麻烦至极，索性还是搞了出来虽然也为后边的工作买下了很多雷。。</p>
+</li>
+<li><p>在功能实现是遇到了datagrid 这样的控件运用问题以及数据绑定的一些问题这些都是之前从未遇到过的，在这次的实践中还是大多时候都从百度中寻求解决方案（我们平时遇到的一些问题 在程序员的世界中大家肯定已经遇到过成千上万次了所以去这里找答案也是很可取的），同时搭配书本知识以及老师的指导最终攻克了一个个难点。</p>
+</li>
+<li><p>在数据库的操作中因为前期准备设计数据库时没能设计完美导致后期工作时边写边改浪费了很多时间。</p>
+</li>
+<li><p>自定义控件的编写及运用</p>
+<h2 id="最后反思"><a href="#最后反思" class="headerlink" title="最后反思"></a>最后反思</h2></li>
+<li><p>在难点面前我们会被阻碍很久但是在一些细节方面实在是不应该，比如:在写TextBox.Text时漏写.Text在sql语句中也不报错但执行结果却总是错误（说这个坑定因为本人因为这个浪费了半早上时间…）</p>
+</li>
+<li><p>在遇到错误后如何排错这才是我们应该去锻炼学习的，比如反推解决之类。</p>
+</li>
+<li><p>最开始设计时一定要尽善尽美，尽量避免低级错误为后续工作打好基础</p>
+</li>
+<li><p>在难点面前懂得变通，可能这一个点花费了一天时间不好实现 最后回去好好休息忽然来了灵感很快解决，曲线救国</p>
+</li>
+<li><p>在目前这个阶段 结果永远不是最重要的，在通往结果的途中遇到的坑才是最宝贵的</p>
+</li>
+</ul>
 
-Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();  
-Workbook excelWB = excelApp.Workbooks.Add(System.Type.Missing);//创建工作簿（WorkBook：即Excel文件主体本身）  
-Worksheet excelWS = (Worksheet)excelWB.Worksheets[1];/...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/09</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/09/MySql之增删改查/">
-            
-                <span>MySql之增删改查</span>
-        </a>
-        <div class="abstract-content">
-            前提：在进行“增删改查”的操作之前，先建立一个包含数据表student的数据库（具体操作可以见MySQL之最基本命令）：
-
-1、“增”——添加数据
-1.1 为表中所有字段添加数据
-1.1.1 INSERT 语句中指定所有字段名
-语法：INSERT INTO 表名（字段名1，字段名2，…）
-　　　　　　   VALUES（值1，值2，…）；
-举例：INSERT INTO student(id,name,grade)
-　　   VALUES(1,’zhangshan’,98);
-使用SELECT * FROM student;命令查看结果为：
-
-表示数据已经成功插入。
-1.1.2 INSER...
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://yoursite.com">Yuan Bo</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/04/09/X-Box仓库管理软件感悟/">http://yoursite.com/2019/04/09/X-Box仓库管理软件感悟/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/04/09/X-Box仓库管理软件感悟/">April 9th 2019, 4:42:00 pm</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/04/09/X-Box仓库管理软件感悟/">April 9th 2019, 4:42:42 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/09</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/09/X-Box仓库管理软件感悟/">
-            
-                <span>X-Box仓库管理制作感悟</span>
-        </a>
-        <div class="abstract-content">
-            X-Box仓库管理制作感悟在经历了一个月的努力后最终实现了这款仓库管理应用，在最开始时也曾感受到迷茫感觉这样一个庞大的项目是我可以完成的吗？ 最终看来完成的还是不错的。
-
-从最初的的整体设计到最后的具体实施确实花费了较大的心力。那就在这边总结一下吧…
-界面设计界面方面大概花费了将近一周的时间吧 最终将整体的样式设计出来，并且按照网格的格式规范编写代码，其中主界面的自定义控件实现了货柜的可视化查看（其实就是从数据库查出状态实时反应出来罢了）整体设计利用到了资源字典将主要的一些控件的样式进行了修改 比如：tabitem，button等
-整体实施
-在界面设计师遇到了部分控件无法达到预期的需求这...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/09</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a>
-    </nav>
-    
-</main>
-            <!-- profile -->
+    <ul class="post-paginator">
+        <li class="next">
             
-            <div class="profile">
-    <img class="profile-avatar" alt="avatar" src="/avatar/Panghu.jpg">
-    <div class="profile-name">Yuan Bo</div>
-    
-    <div class="profile-signature">
-        是个好人！
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/04/09/MySql之增删改查/" title="MySql之增删改查">
+                    <div class="nextTitle">MySql之增删改查</div>
+                </a>
             
-                <a href="mailto:404743961@qq.com" class="iconfont-archer email" title="email"></a>
+        </li>
+        <li class="previous">
             
-        
-    
-        
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/03/14/好吗好的  你坏/" title="好吗好的">
+                    <div class="prevTitle">好吗好的</div>
+                </a>
             
-                <a href="//github.com/Niceyb" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-        
-            
-                <span class="iconfont-archer wechat" title="wechat">
-                  
-                  <img class="profile-qr" src="/assets/wechat.jpg">
-                </span>
-            
-        
     
-        
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
     
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-            
-                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title="rss"></a>
-            
-        
     
 
-    </div>
-    
-    
-        <div class="friends">
-            <div>FRIENDS</div>
-            
-                
-                    <span>
-                        <a href="//www.baidu.com" target="_black">friendA</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href="//www.google.com" target="_black">friendB</a>
-                    </span>
-                
-            
-                
-            
-        </div>
-    
-    
-        <div class="about-me">
-            <a href="/about">ABOUT ME</a>
-        </div>
-    
-</div>
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
             
         </div>
         <footer class="footer footer-unloaded">
@@ -697,6 +552,24 @@ Worksheet excelWS = (Worksheet)excelWB.Worksheets[1];/...
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#X-Box仓库管理制作感悟"><span class="toc-number">1.</span> <span class="toc-text">X-Box仓库管理制作感悟</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#界面设计"><span class="toc-number">1.1.</span> <span class="toc-text">界面设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整体实施"><span class="toc-number">1.2.</span> <span class="toc-text">整体实施</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后反思"><span class="toc-number">1.3.</span> <span class="toc-text">最后反思</span></a></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -984,6 +857,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
