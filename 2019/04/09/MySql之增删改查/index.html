@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Yuan Bo">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Yuan Bo">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>MySql之增删改查 · YbWork&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/panghu.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin="">
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin="">
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">YbWork&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">MySql之增删改查</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">YbWork's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            MySql之增删改查
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">4.4k</span>阅读时长: <span class="post-count reading-time">17 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/09</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p><strong>前提</strong>：在进行“增删改查”的操作之前，先建立一个包含数据表student的数据库（具体操作可以见<a href="http://www.cnblogs.com/heyangblog/p/7624591.html" target="_blank" rel="noopener">MySQL之最基本命令</a>）：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171003230848646-1524510588.png" alt="img"></p>
+<p><strong>1、“增”——添加数据</strong></p>
+<p><strong>1.1 为表中所有字段添加数据</strong></p>
+<p><strong>1.1.1 INSERT 语句中指定所有字段名</strong></p>
+<p>语法：INSERT INTO 表名（字段名1，字段名2，…）</p>
+<p>　　　　　　   VALUES（值1，值2，…）；</p>
+<p>举例：INSERT INTO student(id,name,grade)</p>
+<p>　　   VALUES(1,’zhangshan’,98);</p>
+<p>使用SELECT * FROM student;命令查看结果为：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171003231125302-2016417563.png" alt="img"></p>
+<p>表示数据已经成功插入。</p>
+<p><strong>1.1.2 INSERT语句中不指定字段名</strong></p>
+<p>若不指定字段名，则添加的值的顺序应和字段在表中的顺序完全一致。</p>
+<p>语法：INSERT INTO 表名 VALUES(值11，值2，…）；</p>
+<p>举例：INSERT INTO student</p>
+<p> 　　  VALUES (2,’lisi’,62);</p>
+<p>使用SELECT * FROM student;命令查看结果为：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171003231840240-117402870.png" alt="img"></p>
+<p><strong>1.2 为表的指定字段添加数据</strong></p>
+<p>为指定字段添加数据，即只向部分字段添加值，而其他字段的值为表定义时的默认值。</p>
+<p>语法：INSERT INTO 表名（字段1，字段2，…）</p>
+<p>　　   VALUES(值1，值2，…）</p>
+<p>举例：INSERT INTO student(id,name)</p>
+<p>　　   VALUES(3,’wangwu’);</p>
+<p>使用SELECT * FROM student;命令查看结果为：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171003232331271-202452213.png" alt="img"></p>
+<p>从结果中可以看出，新记录的grade字段值为NULL，是因为添加时为指明grade的值，系统会自动添加默认值。</p>
+<p><strong>1.3 INSERT语句的其他写法</strong></p>
+<p>语法：INSERT INTO 表名</p>
+<p>　　  SET 字段名1=值1[,字段名2=值2，…]</p>
+<p>举例：INSERT INTO student</p>
+<p>　　  SET id=4，name=’zhaoliu’,grade=72;</p>
+<p>使用SELECT * FROM student;命令查看结果为：</p>
+<p> <img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171003232912943-367135080.png" alt="img"></p>
+<p> <strong>1.4  同时添加多条数据</strong></p>
+<p>语法：INSERT INTO 表名[(字段名1，字段名2，…)]</p>
+<p>　　　VALUES （值1，值2，…），（值1，值2，…），</p>
+<p>　　　…</p>
+<p>　　　（值1，值2，…）</p>
+<p>举例<strong>：</strong>INSERT INTO student VALUES</p>
+<p>　　　　(5，‘lilei’,99),</p>
+<p>　　　　(6,’hanmeimei’,87),</p>
+<p>　　　　(8,’poly’,76);</p>
+<p>使用SELECT * FROM student;命令查看结果为：</p>
+<p><strong><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004142649318-693829502.png" alt="img"></strong></p>
+<p><strong>2、“删”——删除数据</strong></p>
+<p>语法：DELETE FROM 表名 [WHERE 条件表达式</p>
+<p><strong>2.1 删除部分数据</strong></p>
+<p>即删除指定的部分数据，需要使用WHERE子句来指定删除记录的条件。</p>
+<p>举例：删除student表中的id值为7的记录</p>
+<p>命令：DELETE  FROM student </p>
+<p>　　　WHERE id=7;</p>
+<p>使用SELECT * FROM student;命令查看结果为：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004143634333-111087424.png" alt="img"></p>
+<p>可见id为7的记录已被成功删除。</p>
+<p><strong>2.2 删除全部数据</strong></p>
+<p>若 DELETE 语句中没有使用WHERE语句，则会将表中所有记录都删除。</p>
+<p>语法：DELETE FROM 表名</p>
+<p>举例：删除student表中的所有记录</p>
+<p>命令：DELETE FROM student；</p>
+<p>使用SELECT * FROM student;命令查看结果为：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004144258927-457958715.png" alt="img"></p>
+<p>可见student表中记录为空，说明表中所有数据已被成功删除。</p>
+<p><strong>2.2 删除全部数据的另一种方法——TRUNCATE</strong></p>
+<p>语法：TRUNCTE [TABLE ] 表名</p>
+<p>举例：TRUNCATE TABLE student；即可删除student表</p>
+<p>注意：</p>
+<p>（1）DELETE 后面可以跟WHERE子句指定删除部分记录，TRUNCATE只能删除整个表的所有记录</p>
+<p>（2）使用TRUNCATE语句删除记录后，新添加的记录时，自动增长字段（如本文中student表中的  id  字段）会默认从1开始，而使用DELETE删除记录后，新添加记录时，自动增长字段会从删除时该字段的的最大值加1开始计算（即原来的id最大为5，则会从6开始计算）。所以如果是想彻底删除一个表的记录而且不会影响到重新添加记录，最好使用TRUNCATE来删除整个表的记录。</p>
+<p><strong>3、“改”——更新数据</strong></p>
+<p>更新数据指对表中现存的数据进行修改。</p>
+<p>语法：UPDATE 表名</p>
+<p>　　　　　　SET 字段名1=值1，[ ，字段名2=值2，…]</p>
+<p>　　　　　　[ WHERE 条件表达式 ]</p>
+<p>在执行后面的语句之前，先使用INSERT语句往student表中插入以下数据：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004150605411-1505718710.png" alt="img"></p>
+<p><strong>3.1  UPDATE 更新部分数据</strong></p>
+<p>指更新指定表中的指定记录，使用WHERE 子句来指定。</p>
+<p>举例：将student表中id值为1=记录，将其name字段的值改为‘caocao’，grade字段的值改为50。</p>
+<p>先查询之前的记录：SELECT * FROM student WHERE id=1;</p>
+<p>显示为：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004145405271-640305415.png" alt="img"></p>
+<p>命令：UPDATE student </p>
+<p>　　　　SET name=‘caocao’,grade=50</p>
+<p>　　　　WHERE id=1;</p>
+<p>使用SELECT * FROM student;命令查看结果为：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004145629271-803904557.png" alt="img"></p>
+<p>可见表中数据已被成功更新。</p>
+<p>注意：还可以使用其他WHERE条件表达式，如：id &gt; 4;</p>
+<p><strong>3.2  UPDATE 更新全部数据</strong></p>
+<p> 在UPDATE 语句中若不使用WHERE 子句，则会将表中所有记录的指定字段都进行更新。</p>
+<p> 举例：更新student表中全部记录，将grade字段都更新为80</p>
+<p>命令：UPDATE student</p>
+<p>　　　　SET grade=80；</p>
+<p>使用SELECT * FROM student;命令查看结果为：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004151054271-1345314735.png" alt="img"></p>
+<p>可以看出所有数据已被成功更新。</p>
+<p><strong>4、“查”——之单表查询</strong></p>
+<p> MySQL从数据表中查询数据最基本的语句是SELECT语句，在前面的“增删查”已经使用过：SELECT * FROM 表名，也就是查询指定数据表中的所有数据。下面将对SELECT语句进行详细介绍。</p>
+<p>在进行后面的操作之前我们先建立一个新的数据表student2，如下：</p>
+<p>　　CREATE TABLE student2</p>
+<p>　　(</p>
+<p>　　　　id  INT(3) PRIMARY KEY AUTO_INCREMENT,</p>
+<p>　　　　name  VARCHAR(20) NOT NULL,</p>
+<p>　　　　grade FLOAT,gender CHAR(2)</p>
+<p>　　);</p>
+<p>此处的PRIMARY KEY表示将该字段设为主键，AUTO_INCREMENT表示将该字段设为开始值是 1,每条新记录自动递增 1,，所以在插入数据时不需为该字段设值；NOT NULL表示将该字段限制为非空值（此处不作详细讲解）</p>
+<p>再向student2表中插入如下数据：</p>
+<p>　　　　　　　　INSERT INTO student2(name,grade,gender)</p>
+<p>　　　　　　　　VALUES   (‘songjiang’,40,’男’),(‘wuyong’,100,’男’),(‘qinming’,90,’男’),(‘husanniang’,88,’女’),(‘sunerniang’,66,’女’),(‘wusong’,86,’男’),(‘linchong’,92,’男’),(‘yanqing’,90,NULL);</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004155857755-348491488.png" alt="img"></p>
+<p>注意：若因为此处插入的数据包含了中文而导致无法插入，可将“男/女”改为“man/woman”，或者将字段编码改为utf-8（方法自行百度，此处不做讲解）。</p>
+<p><strong>4.1  简单查询</strong></p>
+<p><strong>4.1.1  查询所有字段</strong></p>
+<p>语法：SELECT 字段名1，字段名2，…</p>
+<p>　　　FROM 表名</p>
+<p>举例：查询student2表中的所有记录</p>
+<p>命令：SELECT id,name,grade ,gender</p>
+<p>　　    FROM student2;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004160614255-289263188.png" alt="img"></p>
+<p>注意：字段顺序可以更改，如：</p>
+<p>　　　　SELECT id,grade,gender ,name</p>
+<p>　　   　　 FROM student2;</p>
+<p>则显示的结果也会作出对应的调整：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004160831661-8324696.png" alt="img"></p>
+<p><strong>4.1.2  在SELECT语句中使用（‘ * ’）通配符代替所有字段</strong></p>
+<p>语法：SELECT * FROM 表名；</p>
+<p> 在此前已多次使用此命令，所以此处不作赘述。</p>
+<p><strong>4.1.3  查询指定的部分字段</strong></p>
+<p>语法：SELECT 字段名1，字段名2，… FROM 表名；</p>
+<p>举例：查询student2表中的name字段和gender字段</p>
+<p>命令：SELECT name,gender FROM student2;</p>
+<p> 结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004161512208-774088301.png" alt="img"></p>
+<p>从结果中可以看到只显示了name和gender两个字段。</p>
+<p><strong>4.2   按条件查询</strong></p>
+<p><strong>4.2.1  带关系运算符的查询</strong></p>
+<p> 语法：SELECT 字段名1，字段名2，…</p>
+<p> 　　　FROM 表名</p>
+<p>　　    WHERE 条件表达式</p>
+<p>在WHERE子句中可以使用如下关系运算符：</p>
+<table>
+<thead>
+<tr>
+<th><strong>关系运算符</strong></th>
+<th><strong>说        明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>&lt;&gt;</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于等于</td>
+</tr>
+</tbody>
+</table>
+<p>举例：查询student2表中id为4的人的id和name字段</p>
+<p>命令：SELECT id，name FROM student2  WHERE id=4;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004162256818-1018706289.png" alt="img"></p>
+<p>举例：查询student2表中grade大于80的人的name和grade字段</p>
+<p>命令：SELECT name FROM student2 WHERE grade&gt;80;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004162733552-2098265399.png" alt="img"></p>
+<p><strong>4.2.2  带 IN 关键字的查询</strong></p>
+<p>IN关键字用于判断某个字段的值是否在指定集合中，若在，则该字段所在的记录将会被查询出来.</p>
+<p>语法：SELECT * | 字段名1，字段名2，…</p>
+<p>　　　FROM 表名</p>
+<p>　　　WHERE 字段名 [ NOT ]  IN （元素1，元素2，…）</p>
+<p>举例：查询student2表中id值为1,2,3的记录</p>
+<p>命令：SELECT * FROM student2 WHERE  id IN （1,2,3）；</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004163250177-168249390.png" alt="img"></p>
+<p>注意：NOT IN 与 IN 相反，查询的是不在指定范围内的记录。</p>
+<p><strong>4.2.3  带 BETWEEN AND  关键字的查询</strong></p>
+<p>BETWEEN AND 用于判断某个字段的值是否在指定范围之内，若在，则该字段所在的记录会被查询出来，反之不会。</p>
+<p>语法：SELECT * | { 字段名1，字段名2，… }</p>
+<p>　　　FROM  表名</p>
+<p>　　    WHERE 字段名 [ NOT ] BETWEEN  值1  AND  值2；</p>
+<p>举例：查询student2表中id值在2~5之间的人的id和name</p>
+<p>命令：SELECT id,name FROM students WHERE id BETWEEN 2 AND 5;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004165557474-1801132814.png" alt="img"></p>
+<p>注意：NOT BETWEEN AND 表示查询指定范围外的记录。</p>
+<p><strong>4.2.4  空值查询</strong></p>
+<p>在数据表中有些值可能为空值（NULL），空值不同于0，也不同于空字符串，需要使用 IS NULL 来判断字段的值是否为空值。</p>
+<p>语法：SELECT * | 字段名1，字段名2，…</p>
+<p>　　　FROM 表名</p>
+<p>　　　WHERE 字段名 IS [ NOT ] NULL</p>
+<p>举例：查询student2表中gender值为空值的记录。</p>
+<p>命令：SELECT * FROM student2 WHERE gender IS NULL;</p>
+<p> 结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004170202615-403863958.png" alt="img"></p>
+<p>注意：IS NOT NULL 关键字用来查询字段不为空值的记录。</p>
+<p><strong>4.2.5  带 DISTINCT 关键字的查询</strong></p>
+<p>很多表中某些字段的数据存在重复的值，可以使用DISTINCT关键字来过滤重复的值，只保留一个值。</p>
+<p>语法：SELECT DISTINCT 字段名 FROM 表名；</p>
+<p>举例：查询student2表中gender字段的值，结果中不允许出行重复的值。</p>
+<p>命令：SELECT DISTINCT gender FROM student2;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004170915458-1113458950.png" alt="img"></p>
+<p>注意：DISTINCT 关键字还可作用于多个字段，则只有多个字段的值都完全相同时才会被认作是重复记录。</p>
+<p><strong>4.2.6  带 LIKE 关键字的查询</strong></p>
+<p>语法：SELECT * | 字段名1，字段名2，…</p>
+<p>　　　FROM 表名</p>
+<p>　　　WHERE 字段名 [ NOT ] LIKE ‘匹配字符串’;</p>
+<p><strong>（1）百分号（%）通配符</strong></p>
+<p>匹配任意长度的字符串，包括空字符串。例如，字符串“ c% ”匹配以字符 c 开始，任意长度的字符串，如“ ct  ”，“ cut ”，“  current ”等；字符串“ c%g ”表示以字符 c 开始，以 g 结尾的字符串；字符串“ %y% ”表示包含字符“ y ”的字符串，无论“  y ”在字符串的什么位置。</p>
+<p>举例1：查询student2表中name字段以字符“ s ”开头的人的id,name</p>
+<p>命令：SELECT id,name FROM student2  WHERE name LIKE “S%”; </p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004171703927-1413732724.png" alt="img"></p>
+<p>举例2：查询student2表中name字段以字符“ w ”开始，以字符“ g ”结尾的人的id，name。</p>
+<p>命令：SELECT id,name FROM student2 WHERE name LIKE ‘w%g’;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004172114286-1303609454.png" alt="img"></p>
+<p>举例3：查询student2表中name字段不包含“ y ”的人的id，name。</p>
+<p>命令：SELECT id,name FROM student2 WHERE name NOT LIKE ‘%y%’;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004172456552-1702412484.png" alt="img"></p>
+<p><strong>（2）下划线（_）通配符</strong></p>
+<p> 下划线通配符只匹配单个字符，若要匹配多个字符，需要使用多个下划线通配符。例如，字符串“ cu_ ”匹配以字符串“ cu  ”开始，长度为3的字符，如“ cut ”，“ cup ”；字符串“ c__l”匹配在“ c ”和“ l ”之间包含两个字符的字符串，如“  cool ”。需要注意的是，连续的“<em>”之间不能有空格，例如“M</em> _QL”只能匹配“My SQL”，不能匹配“MySQL”。</p>
+<p>举例：查询在student2表中name字段值以“ wu ”开始，以“ ong ”结束，并且中间只有一个字符的记录。</p>
+<p>命令：SELECT * FROM student2 WHERE name LIKE ‘wu_ong’;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004173600724-843649887.png" alt="img"></p>
+<p>注意：若要查询的字段值本来就含有“ % ”或者“ _ ”,则要用“ \ ”进行转义，如要查询本身含有“ % ”的字符串，命令应改为 “ %\%%”。</p>
+<p><strong>4.2.7  带 AND 关键字的多条件查询</strong></p>
+<p>在使用SELECT语句查询数据时，优势为了使查询结果更加精确，可以使用多个查询条件，如使用 AND 关键字可以连接两个或多个查询条件。</p>
+<p>语法：SELECT * | 字段名1，字段名2，…</p>
+<p>　　　FROM 表名</p>
+<p>　　　WHERE 条件表达式1 AND 条件表达式2 [ … AND 条件表达式 n ];</p>
+<p>举例：查询student2表中 id 字段小于5，并且 gender 字段值为“ 女 ”的人的id和name</p>
+<p>命令：SELECT id,name FROM student2 WHERE id&lt;5 AND gender=’女’;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004175319802-1131836831.png" alt="img"></p>
+<p><strong>4.2.8  带 OR 关键字的多条件查询</strong></p>
+<p>与 AND 关键字不同，OR 关键字只要满足任意一个条件就会被查询出来</p>
+<p>语法：SELECT * | 字段名1，字段名2，…</p>
+<p>　　　FROM 表名</p>
+<p>　　　WHERE 条件表达式1 OR 条件表达式2 [ … OR 条件表达式 n ];</p>
+<p>举例：查询student2表中 id 字段小于3，或者 gender 字段值为“ 女 ”的人的id，name和gender</p>
+<p>命令：SELECT id,name ,gender FROM student2 WHERE id&lt;3 OR gender=’女’;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004175649755-1629507684.png" alt="img"></p>
+<p><strong>4.2.9   OR 和 AND 一起使用的情况</strong></p>
+<p>OR 和 AND 一起使用的时候，AND 的优先级高于 OR，因此二者一起使用时，会先运算 AND 两边的表达式，再运算 OR 两边的表达式。</p>
+<p>举例：查询student2表中gender值为“女”或者gender值为“男”并且grade字段值为100的人的记录</p>
+<p>命令：SELECT * FROM student2 WHERE gender=’女’ OR gender=’男’ AND grade=100;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171004180211443-1621854847.png" alt="img"></p>
+<p> <strong>4.3  高级查询</strong></p>
+<p><strong>4.3.1  聚合函数</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>函数名称</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>COUNT()</td>
+<td>返回某列的行数</td>
+</tr>
+<tr>
+<td>SUM()</td>
+<td>返回某列值的和</td>
+</tr>
+<tr>
+<td>AVG()</td>
+<td>返回某列的平均值</td>
+</tr>
+<tr>
+<td>MAX()</td>
+<td>返回某列的最大值</td>
+</tr>
+<tr>
+<td>MIN()</td>
+<td>返回某列的最小值</td>
+</tr>
+</tbody>
+</table>
+<p><strong>（1）COUNT()函数：统计记录的条数</strong></p>
+<p>语法：SELECT COUNT(*) FROM 表名</p>
+<p>举例：查询student2表中一共有多少条记录</p>
+<p>命令：SELECT COUNT(*) FROM student2;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005142029052-1747107165.png" alt="img"> </p>
+<p><strong>（2）SUM()函数：求出表中某个字段所有值的总和</strong></p>
+<p>语法：SELECT  SUM(字段名) FROM 表名；</p>
+<p>举例：求出student2表中grade字段的总和</p>
+<p>命令：SELECT SUM(grade) FROM student2;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005142704083-1747767968.png" alt="img"></p>
+<p><strong>（3）AVG()函数：求出表中某个字段所有值的平均值</strong></p>
+<p>语法：SELECT AVG(字段名) FROM 表名；</p>
+<p>举例：求出student2表中grade字段的平均值</p>
+<p>命令：SELECT AVG(grade) FROM student2;</p>
+<p>结果：</p>
+<p><strong><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005143122615-1383994671.png" alt="img"></strong></p>
+<p><strong>（4）MAX()函数：求出表中某个字段所有值的最大值</strong></p>
+<p>语法：SELECT MAX(字段名) FROM 表名；</p>
+<p>举例：求出student2表中所有人grade字段的最大值</p>
+<p>命令：SELECT MAX(grade) FROM student2;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005143446615-737055501.png" alt="img"></p>
+<p><strong>（5）MIN()函数：求出表中某个字段所有值的最小值</strong></p>
+<p>语法：SELECT MIN(字段名) FROM 表名；</p>
+<p>举例：求出student2表中所有人grade字段的最小值</p>
+<p>命令：SELECT MIN(grade) FROM student2;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005143631333-1455792802.png" alt="img"></p>
+<p><strong>4.3.2  对查询结果进行排序</strong></p>
+<p>语法：SELECT 字段名1，字段名2，…</p>
+<p>　　　FROM 表名</p>
+<p>　　　ORDER BY 字段名1 [ ASC | DESC ],字段名2 [ ASC | DESC ]…</p>
+<p>在该语法中指定的字段名是对查询结果进行排序的依据，ASC表示升序排列，DESC 表示降序排列，默认情况是升序排列。</p>
+<p>举例1：查出student2表中的所有记录，并按照grade字段进行升序排序</p>
+<p>命令：SELECT * FROM student2</p>
+<p>　　　ORDER BY grade;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005144208599-1648127123.png" alt="img"></p>
+<p>举例2：查出student2表中的所有记录，并按照grade字段进行降序排序</p>
+<p>命令：SELECT * FROM student2</p>
+<p>　　　ORDER BY grade DESC;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005144413615-1574912225.png" alt="img"></p>
+<p><strong>4.3.3  分组查询</strong></p>
+<p>在对表中数据进行统计的时候，可以使用GROUP BY 按某个字段或者多个字段进行分组，字段中值相同的为一组，如男生分为一组，女生分为一组。</p>
+<p>语法：SELECT  字段名1，字段名2，…</p>
+<p>　　　FROM 表名</p>
+<p>　　　GROUP BY 字段名1，字段名2，… [ HAVING 条件表达式 ];</p>
+<p><strong>（1）单独使用 GROUP BY 进行分组</strong></p>
+<p>单独使用GROUP BY 关键字，查询的是每个分组中的一条记录</p>
+<p>举例：查询student2表中的数据，按照gender字段进行分组。</p>
+<p>命令：SELECT * FROM student2 GROUP BY gender;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005150536521-935614289.png" alt="img"></p>
+<p>注意：若在此2例中键入命令之后出现“#1055”错误，无法完成分组查询，是由于MySQL版本升级到了5.7，可自行百度“MySQL 1055错误”参考解决办法。</p>
+<p><strong>（2） GROUP BY 和聚合函数一起使用</strong></p>
+<p>GROUP BY 和聚合函数一起使用，可以统计出某个或者某些字段在一个分组中的最大值、最小值、平均值等。</p>
+<p>举例：将student2表按照gender字段进行分组查询，计算出每组共有多少个人。</p>
+<p>命令：SELECT COUNT(*) ,gender FROM student2 GROUP BY gender;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005151640380-316099277.png" alt="img"></p>
+<p><strong>（2） GROUP BY 和 HAVING 关键字一起使用</strong></p>
+<p> HAVING关键字和WHERE关键字的作用相同，区别在于HAVING 关键字可以跟聚合函数，而WHERE 关键字不能。通常HAVING 关键字都和GROUP BY一起使用，用于对分组后的结果进行过滤。</p>
+<p>举例：将student2表按照gender字段进行分组查询，查询出grade字段值之和小于300的分组</p>
+<p>命令：SELECT sum(grade),gender FROM student2 GROUP BY gender HAVING SUM(grade) &lt; 300;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005152121240-1311070815.png" alt="img"></p>
+<p><strong>4.3.4  使用 LIMIT 限制查询结果的数量</strong></p>
+<p>语法：SELECT 字段名2，字段名2，…</p>
+<p>　　　FROM 表名</p>
+<p>　　　LIMIT [ OFFSET ,] 记录数</p>
+<p>在此语法中，LIMIT 后面可以跟两个参数，第一个参数“ OFFSET  ”表示偏移量，如果偏移量为0，则从查询结果的第一条记录开始，偏移量为1则从查询结果中的第二条记录开始，以此类推。OFFSET为可选值，默认值为0，第二个参数“记录数”表示指定返回查询记录的条数。</p>
+<p>举例1：查询student2表中的前四条记录。</p>
+<p>命令：SELECT * FROM student LIMIT 4;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005152701911-2060712590.png" alt="img"></p>
+<p>举例2：查询student2表中grade字段从第五位到第八位的人（从高到低）</p>
+<p>命令：SELECT * FROM student2 ORDER BY grade DESC LIMIT 4,4;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005153022958-1694547740.png" alt="img"></p>
+<p><strong>4.3.5  函数（列表）</strong></p>
+<p>见<a href="http://www.cnblogs.com/heyangblog/p/7624317.html" target="_blank" rel="noopener">MySQL之常用函数</a></p>
+<p><strong>4.4  为表和字段取别名</strong></p>
+<p><strong>4.4.1 为表取别名</strong></p>
+<p>在进行查询操作时，如果表名很长使用起来不方便，可以为表取一个别名来代替表的名称。</p>
+<p>语法：SELECT * FROM 表名 [ AS ] 别名；</p>
+<p>举例：为student2表起一个别名s，并查询student2表中gender字段值为“女”的记录</p>
+<p>命令：SELECT * FROM student2 AS s WHERE s.gender=’女’;</p>
+<p>结果：</p>
+<p><img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005153730396-1908875421.png" alt="img"></p>
+<p><strong>4.4.1 为字段取别名</strong></p>
+<p>语法：SELECT 字段名 [ AS ] 别名 [ ,字段名 [AS] 别名，…]  FROM 表名 ；</p>
+<p>举例：查询student2表中的所有记录的name和gender字段值，并未这两个字段起别名stu_name和stu_gender</p>
+<p>命令：SELECT name AS stu_name,gender AS stu_gender FROM student2;</p>
+<p>结果：</p>
+<p> <img src="https://images2017.cnblogs.com/blog/1131795/201710/1131795-20171005154109599-1101159223.png" alt="img"></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://yoursite.com">Yuan Bo</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/04/09/MySql之增删改查/">http://yoursite.com/2019/04/09/MySql之增删改查/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/04/09/MySql之增删改查/">April 9th 2019, 10:38:00 pm</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/04/09/MySql之增删改查/">April 9th 2019, 4:03:29 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/04/09/WPF excel导入DataGrid/" title="WPF excel导入DataGrid">
+                    <div class="nextTitle">WPF excel导入DataGrid</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/03/14/好吗好的  你坏/" title="好吗好的">
+                    <div class="prevTitle">好吗好的</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:404743961@qq.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/Niceyb" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/wechat.jpg">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title="rss"></a>
+            
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 9
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href="/2019/04/09/MySql之增删改查/">MySql之增删改查</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href="/2019/04/09/WPF excel导入DataGrid/">WPF excel导入DataGrid</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href="/2019/04/09/MySql之多表联合操作/">MySql之多表联合操作</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href="/2019/04/09/WPF自定义控件及样式/">WPF excel导入DataGrid</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href="/2019/04/09/WPF将DataGrid内容导出到Excel/">WPF将DataGrid内容导出到Excel</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/14</span><a class="archive-post-title" href="/2019/03/14/好吗好的  你坏/">好吗好的</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href="/2019/01/22/C#资源字典--程序集之间的资源共享/">C#资源字典--程序集之间的资源共享</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href="/2019/01/22/ASP.NET学习流程简述/">初识ASP.NET（学习流程）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span><a class="archive-post-title" href="/2019/01/15/hello-world/">Hello World</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Diary-tags-Learning-ASP-NET"><span class="iconfont-archer">&#xe60a;</span>Diary-tags-Learning-ASP-NET</span>
+    
+        <span class="sidebar-category-name" data-categories="Diary-tags-Learning-WPF"><span class="iconfont-archer">&#xe60a;</span>Diary-tags-Learning-WPF</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Yuan Bo"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

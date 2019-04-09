@@ -346,6 +346,157 @@
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/04/09/WPF将DataGrid内容导出到Excel/">
+            
+                <span>WPF将DataGrid内容导出到Excel</span>
+        </a>
+        <div class="abstract-content">
+            WPF将DataGrid内容导出到Excel在做仓库管理时其中一个需求就是把WPF中的datagird中的内容导出为Excel。查了很多网上的资料，最后结合将DataGridView导出到Excel的方法做了一些调整之后实现了功能需求。    
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152private void ExportParameterBtn_Click(object sender, RoutedEventArgs e)        ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/09</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/04/09/WPF自定义控件及样式/">
+            
+                <span>WPF excel导入DataGrid</span>
+        </a>
+        <div class="abstract-content">
+            一．图标字体 
+　　图标字体在网页开发上运用非常广泛，具体可以网络搜索了解，网页上的运用有很多例子，如Bootstrap。但在C/S程序中使用还不多，字体图标其实就是把矢量图形打包到字体文件里，就像使用一般外置字体一样的使用，因此Winform、WPF中都是可以用的。 
+　　在我们多个WPF项目中广泛使用了图标字体，包括自定义控件、自定义样式、模板等。总结下： 
+
+网上开源字体图标很多，很容易获取，项目开发中需要的绝大部分图标都可以找到，非常方便，推荐 阿里巴巴开源字体； 
+字体文件非常小，比使用png等图片文件要小很多； 
+比使用普通图片资源性能要好很多； 
+和普通字体一样，是矢量的，...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/09</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/04/09/MySql之多表联合操作/">
+            
+                <span>MySql之多表联合操作</span>
+        </a>
+        <div class="abstract-content">
+            前提：为方便后面的操作，我们首先创建一个数据库 test，再在 test 里创建两个数据表：grade（班级表）和student（学生表）
+创建数据库：CREATE DATABASE test;
+选择要操作的数据表：USE test;
+创建数据表：CREATE TABLE grade 
+　　　　　　( 
+　　　　　　　　 id INT(4) NOT NULL PRIMARY KEY,
+　　　　　　 　　name varchar(36)
+　　　　　　 );
+　　　　　　
+　　　　　　CREATE TABLE student　　　　　　(    　　　　　　　　sid INT(4) NOT ...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/09</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/04/09/WPF excel导入DataGrid/">
+            
+                <span>WPF excel导入DataGrid</span>
+        </a>
+        <div class="abstract-content">
+             导出Excel的样式设计
+[csharp]
+view  plain
+copy
+
+Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();  
+Workbook excelWB = excelApp.Workbooks.Add(System.Type.Missing);//创建工作簿（WorkBook：即Excel文件主体本身）  
+Worksheet excelWS = (Worksheet)excelWB.Worksheets[1];/...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/09</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/04/09/MySql之增删改查/">
+            
+                <span>MySql之增删改查</span>
+        </a>
+        <div class="abstract-content">
+            前提：在进行“增删改查”的操作之前，先建立一个包含数据表student的数据库（具体操作可以见MySQL之最基本命令）：
+
+1、“增”——添加数据
+1.1 为表中所有字段添加数据
+1.1.1 INSERT 语句中指定所有字段名
+语法：INSERT INTO 表名（字段名1，字段名2，…）
+　　　　　　   VALUES（值1，值2，…）；
+举例：INSERT INTO student(id,name,grade)
+　　   VALUES(1,’zhangshan’,98);
+使用SELECT * FROM student;命令查看结果为：
+
+表示数据已经成功插入。
+1.1.2 INSER...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/09</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/01/22/ASP.NET学习流程简述/">
             
                 <span>初识ASP.NET（学习流程）</span>
@@ -363,6 +514,36 @@ ASP.NET学习流程简述学习HTML与CSS主要在于理解概念
 ASP.NET应用程序与网页的生命周期以及相关对象（httpcontext，response，request）的用途
 
 ASP.NET实现事件和驱动的内幕...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/01/22</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/01/22/C#资源字典--程序集之间的资源共享/">
+            
+                <span>C#资源字典--程序集之间的资源共享</span>
+        </a>
+        <div class="abstract-content">
+            C# 资源字典–程序集之间的资源共享最近刚巧需要用WPF制作一个订单处理类应用，虽然一开始接触专业方面知识就是从C#WPF程序开始但一开始这个小项目就遇到了界面布局等等问题 最终在百度，书本的帮助下做出一个简单的界面
+
+主界面中用到了简单的用户自定义控件 再到后台逻辑代码中利用for循环打印上去
+for (int i = 0; i &lt;2; i++)
+            {
+                for (int j = 0; j &lt; 8; j++)
+                {
+                    UserControl1 bitkyP...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -513,9 +694,84 @@ ASP.NET实现事件和驱动的内幕...
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 4
+        Total : 9
         </div>
         <!-- search  -->
         
@@ -531,12 +787,37 @@ ASP.NET实现事件和驱动的内幕...
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href="/2019/04/09/MySql之增删改查/">MySql之增删改查</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href="/2019/04/09/WPF excel导入DataGrid/">WPF excel导入DataGrid</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href="/2019/04/09/MySql之多表联合操作/">MySql之多表联合操作</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href="/2019/04/09/WPF自定义控件及样式/">WPF excel导入DataGrid</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/09</span><a class="archive-post-title" href="/2019/04/09/WPF将DataGrid内容导出到Excel/">WPF将DataGrid内容导出到Excel</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">03/14</span><a class="archive-post-title" href="/2019/03/14/好吗好的  你坏/">好吗好的</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/14</span><a class="archive-post-title" href="/2019/03/14/C#资源字典--程序集之间的资源共享/">C# WPF界面设计（资源字典）</a>
+            <span class="archive-post-date">01/22</span><a class="archive-post-title" href="/2019/01/22/C#资源字典--程序集之间的资源共享/">C#资源字典--程序集之间的资源共享</a>
         </li>
     
     
